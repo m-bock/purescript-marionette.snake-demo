@@ -1,4 +1,4 @@
-module Test.Examples.Snake.Parsing.GridParser
+module Snake.Parsing.GridParser
   ( GridParseError(..)
   , GridParser
   , any
@@ -19,10 +19,10 @@ import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Show.Generic (genericShow)
 import Data.TraversableWithIndex (traverseWithIndex)
 import Data.Tuple (Tuple(..), snd)
-import Test.Examples.Snake.Data.Direction (Direction)
-import Test.Examples.Snake.Data.Direction as Dir
-import Test.Examples.Snake.Data.Grid (Grid, Vec)
-import Test.Examples.Snake.Data.Grid as Grid
+import Snake.Data.Direction (Direction)
+import Snake.Data.Direction as Dir
+import Snake.Data.Grid (Grid, Vec)
+import Snake.Data.Grid as Grid
 import Unsafe.Coerce (unsafeCoerce)
 
 type Context a =

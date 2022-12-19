@@ -1,4 +1,4 @@
-module Test.Examples.Snake.Data.CharGrid where
+module Snake.Data.CharGrid where
 
 import Prelude
 
@@ -10,9 +10,9 @@ import Data.String.CodeUnits (fromCharArray, toCharArray)
 import Data.String.Regex (replace) as Reg
 import Data.String.Regex.Flags (noFlags) as Reg
 import Data.String.Regex.Unsafe (unsafeRegex) as Reg
-import Test.Examples.Snake.Data.Grid (ErrorFromArrays, Grid)
-import Test.Examples.Snake.Data.Grid as Grid
-import Test.Examples.Snake.Data.Vector (Vector(..))
+import Snake.Data.Grid (ErrorFromArrays, Grid)
+import Snake.Data.Grid as Grid
+import Snake.Data.Vector (Vector(..))
 
 type CharGrid = Grid Char
 

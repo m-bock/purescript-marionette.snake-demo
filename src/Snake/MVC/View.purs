@@ -1,17 +1,17 @@
-module Test.Examples.Snake.MVC.View where
+module Snake.MVC.View where
 
 import Prelude
 
 import Data.Maybe (Maybe(..))
 import Marionette.Renderers.Commander (KeyboardUserInput(..), Output(..))
 import Marionette.Renderers.Commander as Com
-import Test.Examples.Snake.Board (Tile(..))
-import Test.Examples.Snake.Board as Board
-import Test.Examples.Snake.Data.CharGrid as CharGrid
-import Test.Examples.Snake.Data.Direction as Dir
-import Test.Examples.Snake.Data.Grid as Grid
-import Test.Examples.Snake.Data.Vector (Vector(..))
-import Test.Examples.Snake.MVC.Model (Game(..), Msg(..), State(..))
+import Snake.Board (Tile(..))
+import Snake.Board as Board
+import Snake.Data.CharGrid as CharGrid
+import Snake.Data.Direction as Dir
+import Snake.Data.Grid as Grid
+import Snake.Data.Vector (Vector(..))
+import Snake.MVC.Model (Game(..), Msg(..), State(..))
 
 view :: State -> Com.Surface Msg
 view = case _ of

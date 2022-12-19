@@ -1,4 +1,4 @@
-module Test.Examples.Snake.Data.Grid
+module Snake.Data.Grid
   ( ErrorFromArrays(..)
   , Grid
   , Vec
@@ -42,7 +42,7 @@ import Data.Tuple.Nested (type (/\))
 import Data.Unfoldable (class Unfoldable)
 import Debug (spy)
 import Partial.Unsafe (unsafeCrashWith)
-import Test.Examples.Snake.Data.Vector (Vector(..))
+import Snake.Data.Vector (Vector(..))
 import Unsafe.Coerce (unsafeCoerce)
 
 type Vec = Vector Int

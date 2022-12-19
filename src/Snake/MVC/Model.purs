@@ -1,11 +1,11 @@
-module Test.Examples.Snake.MVC.Model where
+module Snake.MVC.Model where
 
 import Prelude
 
 import Data.Generic.Rep (class Generic)
 import Data.Show.Generic (genericShow)
-import Test.Examples.Snake.Board (Board)
-import Test.Examples.Snake.Data.Direction (Direction)
+import Snake.Board (Board)
+import Snake.Data.Direction (Direction)
 
 data Msg
   = Msg_Start

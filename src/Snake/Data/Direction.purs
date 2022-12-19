@@ -1,4 +1,4 @@
-module Test.Examples.Snake.Data.Direction where
+module Snake.Data.Direction where
 
 import Prelude
 
@@ -7,8 +7,8 @@ import Data.Enum (class BoundedEnum, class Enum, enumFromTo)
 import Data.Enum.Generic (genericCardinality, genericFromEnum, genericPred, genericSucc, genericToEnum)
 import Data.Generic.Rep (class Generic)
 import Data.Show.Generic (genericShow)
-import Test.Examples.Snake.Data.Vector (Vector)
-import Test.Examples.Snake.Data.Vector as Vec
+import Snake.Data.Vector (Vector)
+import Snake.Data.Vector as Vec
 
 data Direction = Up | Right | Down | Left
 

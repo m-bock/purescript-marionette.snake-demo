@@ -1,4 +1,4 @@
-module Test.Examples.Snake.Board
+module Snake.Board
   ( Board
   , BoardEvent(..)
   , Goodie(..)
@@ -28,13 +28,13 @@ import Data.Show.Generic (genericShow)
 import Data.Traversable (foldr, traverse)
 import Data.Tuple (Tuple(..), fst)
 import Debug (spy)
-import Test.Examples.Snake.Data.CharGrid as CharGrid
-import Test.Examples.Snake.Data.Direction (Direction)
-import Test.Examples.Snake.Data.Direction as Dir
-import Test.Examples.Snake.Data.Grid (ErrorFromArrays, Grid, Vec)
-import Test.Examples.Snake.Data.Grid as Grid
-import Test.Examples.Snake.Parsing.GridParser (GridParseError, GridParser)
-import Test.Examples.Snake.Parsing.GridParser as GP
+import Snake.Data.CharGrid as CharGrid
+import Snake.Data.Direction (Direction)
+import Snake.Data.Direction as Dir
+import Snake.Data.Grid (ErrorFromArrays, Grid, Vec)
+import Snake.Data.Grid as Grid
+import Snake.Parsing.GridParser (GridParseError, GridParser)
+import Snake.Parsing.GridParser as GP
 
 --------------------------------------------------------------------------------
 --- Types

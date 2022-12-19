@@ -11,6 +11,7 @@
   , "either"
   , "enums"
   , "foldable-traversable"
+  , "marionette"
   , "maybe"
   , "newtype"
   , "node-readline"

@@ -1,4 +1,4 @@
-module Test.Examples.Snake.Data.Vector
+module Snake.Data.Vector
   ( Vector(..)
   , _x
   , _y

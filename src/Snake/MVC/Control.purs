@@ -1,4 +1,4 @@
-module Test.Examples.Snake.MVC.Control where
+module Snake.MVC.Control where
 
 import Prelude
 
@@ -9,9 +9,9 @@ import Data.Maybe (fromMaybe)
 import Data.String as Str
 import Data.Time.Duration (Milliseconds(..))
 import Marionett.Controllers.Monadic (MarionetteT, sendMsg)
-import Test.Examples.Snake.Board (BoardEvent(..))
-import Test.Examples.Snake.Board as Board
-import Test.Examples.Snake.MVC.Model (Game(..), Msg(..), Score(..), State(..), StateError(..))
+import Snake.Board (BoardEvent(..))
+import Snake.Board as Board
+import Snake.MVC.Model (Game(..), Msg(..), Score(..), State(..), StateError(..))
 
 type Env m =
   { delay :: Milliseconds -> m Unit
