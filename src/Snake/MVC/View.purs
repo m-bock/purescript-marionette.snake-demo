@@ -3,69 +3,90 @@ module Snake.MVC.View where
 import Prelude
 
 import Data.Maybe (Maybe(..))
-import Marionette.Renderers.Commander (KeyboardUserInput(..), Output(..))
-import Marionette.Renderers.Commander as Com
+import Data.Newtype (unwrap)
+import Data.String as Str
+import Marionette.Renderers.Commander (CliSurface(..), KeyPrompt(..), KeyboardUserInput(..), Output(..))
 import Snake.Board (Tile(..))
 import Snake.Board as Board
 import Snake.Data.CharGrid as CharGrid
 import Snake.Data.Direction as Dir
 import Snake.Data.Grid as Grid
 import Snake.Data.Vector (Vector(..))
-import Snake.MVC.Model (Game(..), Msg(..), State(..))
+import Snake.MVC.Model (Game(..), Msg(..), State(..), Config)
 
-view :: State -> Com.Surface Msg
-view = case _ of
-  State_Init -> Com.Surface
+size :: Vector Int
+size = Vec 21 11
+
+view :: Config -> State -> CliSurface Msg
+view cfg = case _ of
+  State_Init -> CliSurface
     (TextOutput "")
-    ( KeyInput
-        ( case _ of
-            { name: "s" } -> Just Msg_Start
-            _ -> Nothing
-        )
-        { prompt: "Press 's' to start!" }
-    )
 
-  State_Playing (Game { board }) -> Com.Surface
-    ( TextOutput $
-        board
-          # Board.toGrid
-          <#>
-            case _ of
-              Tile_Wall -> '#'
-              Tile_Floor -> ' '
-              Tile_Goodie -> 'x'
-              Tile_SnakeHead -> '+'
-              Tile_SnakeBody -> 'O'
-          # CharGrid.toString
-    )
-    ( KeyInput
-        ( case _ of
-            { name: "up" } -> Just $ Msg_Navigate Dir.Up
-            { name: "right" } -> Just $ Msg_Navigate Dir.Right
-            { name: "down" } -> Just $ Msg_Navigate Dir.Down
-            { name: "left" } -> Just $ Msg_Navigate Dir.Left
+    do
+      KeyInput
+        (KeyPrompt "Press 's' to start!")
+        case _ of
+          { name: "s" } -> Just Msg_Start
+          _ -> Nothing
 
-            _ -> Nothing
-        )
-        { prompt: "Up/Right/Down/Left" }
-    )
+  State_Playing (Game { board, score }) -> CliSurface
+    do
+      TextOutput $ Str.joinWith ""
+        [ board
+            # Board.toGrid
+            <#>
+              case _ of
+                Tile_Wall -> '#'
+                Tile_Floor -> ' '
+                Tile_Goodie -> 'x'
+                Tile_SnakeHead -> '+'
+                Tile_SnakeBody -> 'O'
+            # CharGrid.toString
+        , "  SCORE " <> show (unwrap score) <> "/" <> show cfg.maxScore
+        ]
 
-  State_Error msg -> Com.Surface
+    do
+      KeyInput
+        (KeyPrompt "Up/Right/Down/Left p=pause")
+        case _ of
+          { name: "up" } -> Just $ Msg_Navigate Dir.Up
+          { name: "right" } -> Just $ Msg_Navigate Dir.Right
+          { name: "down" } -> Just $ Msg_Navigate Dir.Down
+          { name: "left" } -> Just $ Msg_Navigate Dir.Left
+          { name: "p" } -> Just $ Msg_Pause
+          _ -> Nothing
+
+  State_Error msg -> CliSurface
     (TextOutput $ "Error: " <> show msg)
     NoInput
 
-  State_Paused _ -> Com.Surface
-    (TextOutput "Paused")
-    NoInput
-
-  State_Lost _ -> Com.Surface
-    (TextOutput "Lost")
-    NoInput
-
-  State_Won _ -> Com.Surface
-    ( TextOutput $
-        Grid.fill (const '*') (Vec 20 10)
-          # CharGrid.writeTextCenter "Hallo"
+  State_Paused _ -> CliSurface
+    do
+      TextOutput $
+        Grid.fill (const '.') size
+          # CharGrid.writeTextCenter "PAUSED"
           # CharGrid.toString
-    )
+
+    do
+      KeyInput
+        (KeyPrompt "r=resume")
+        case _ of
+          { name: "r" } -> Just $ Msg_Resume
+          _ -> Nothing
+
+  State_Lost _ -> CliSurface
+    do
+      TextOutput $
+        Grid.fill (const '.') size
+          # CharGrid.writeTextCenter "YOU LOST!"
+          # CharGrid.toString
+    NoInput
+
+  State_Won _ -> CliSurface
+    do
+      TextOutput $
+        Grid.fill (const '.') size
+          # CharGrid.writeTextCenter "YOU WON!"
+          # CharGrid.toString
+
     NoInput

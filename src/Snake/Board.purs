@@ -261,7 +261,7 @@ instance FromGrid Maze where
 
 instance FromGrid Snake where
   fromGrid = ado
-    --GP.setDirection Dir.Right
+    GP.setDirection Dir.Right
     GP.moveTo (\_ -> (_ == Tile_SnakeHead))
     h <- GP.position <* GP.any
     b1 <- GP.position <* GP.satisfies (\_ -> (_ == Tile_SnakeBody))

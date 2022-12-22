@@ -98,8 +98,8 @@ scanGrid init f = GridParser \ctx ->
         modify_ (\g -> Grid.insert k x g # fromMaybe g)
         pure Nothing
 
-setDirection :: forall b a. Direction -> GridParser b a
-setDirection = unsafeCoerce 1
+setDirection :: forall b. Direction -> GridParser b Unit
+setDirection dir = GridParser \ctx -> Right $ Tuple (ctx { direction = dir }) unit
 
 satisfies :: forall b. (Vec -> b -> Boolean) -> GridParser b b
 satisfies f = GridParser \ctx ->

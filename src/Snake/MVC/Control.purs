@@ -8,10 +8,10 @@ import Data.Either (Either(..))
 import Data.Maybe (fromMaybe)
 import Data.String as Str
 import Data.Time.Duration (Milliseconds(..))
-import Marionett.Controllers.Monadic (MarionetteT, sendMsg)
+import Marionette.Controllers.Monadic (MarionetteT, sendMsg)
 import Snake.Board (BoardEvent(..))
 import Snake.Board as Board
-import Snake.MVC.Model (Game(..), Msg(..), Score(..), State(..), StateError(..))
+import Snake.MVC.Model (Game(..), Msg(..), Score(..), State(..), StateError(..), Config)
 
 type Env m =
   { delay :: Milliseconds -> m Unit
@@ -22,8 +22,8 @@ level :: String
 level = Str.joinWith "\n"
   [ "###########     #####"
   , "#                   #"
-  , "#          +OOOO    #"
-  , "                     "
+  , "#                   #"
+  , "           +OOOO     "
   , "    x                "
   , "                     "
   , "                     "
@@ -33,10 +33,10 @@ level = Str.joinWith "\n"
   , "###########     #####"
   ]
 
-data AppError = Err1 | Err2
 
-control :: forall m. Monad m => Env m -> Msg -> MarionetteT Msg State m Unit
-control env = case _ of
+
+control :: forall m. Monad m => Env m -> Config -> Msg -> MarionetteT Msg State m Unit
+control env cfg = case _ of
   Msg_Start -> do
     modify_ case _ of
       State_Init ->
@@ -83,7 +83,7 @@ control env = case _ of
             let
               newScore = game.score + Score 1
             in
-              if newScore >= Score 100 then
+              if newScore >= Score cfg.maxScore then
                 State_Won newScore
 
               else

@@ -3,6 +3,7 @@ module Snake.MVC.Model where
 import Prelude
 
 import Data.Generic.Rep (class Generic)
+import Data.Newtype (class Newtype)
 import Data.Show.Generic (genericShow)
 import Snake.Board (Board)
 import Snake.Data.Direction (Direction)
@@ -29,9 +30,13 @@ newtype Game = Game
   , board :: Board
   }
 
+type Config = { maxScore :: Int }
+
 newtype Score = Score Int
 
 ---
+
+derive instance Newtype Score _
 
 derive instance Generic Game _
 
