@@ -29,7 +29,7 @@ config =
   defaultConfig
 
 appConfig :: Model.Config
-appConfig = { maxScore: 3 }
+appConfig = { maxScore: 10 }
 
 program :: Program Msg State
 program =

@@ -20,7 +20,11 @@ size = Vec 21 11
 view :: Config -> State -> CliSurface Msg
 view cfg = case _ of
   State_Init -> CliSurface
-    (TextOutput "")
+    do
+      TextOutput $
+        Grid.fill (const '.') size
+          # CharGrid.writeTextCenter "SNAKE"
+          # CharGrid.toString
 
     do
       KeyInput
